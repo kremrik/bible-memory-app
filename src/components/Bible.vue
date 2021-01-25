@@ -44,22 +44,23 @@
     </v-row>
     <v-row>
       <v-spacer/>
-      <v-col cols="8">
-        <p v-for="verse in passageText.verses" :key="verse.verse">
-          <v-hover 
-            v-slot:default="{ hover }"
-            open-delay="200"
-          >
-            <div>
+      <v-col cols="12" xs="12" sm="10" md="8" lg="6" xl="6">
+        <div v-for="verse in passageText.verses" :key="verse.verse">
+          <p>
+            <span>[{{ verse.verse }}] </span>
+            <span>{{ verse.hint }} </span>
+            <v-hover
+              v-slot="{ hover }"
+              open-delay="200"
+            >
               <span>
-                [{{ verse.verse }}] {{ verse.hint }} 
+                <span v-for="r in verse.rest" :key="r" :class="{ 'on-hover': !hover }">
+                  {{ r }}
+                </span>
               </span>
-              <span :class="{ 'on-hover': !hover }">
-                {{ verse.rest }}
-              </span>
-            </div>
-          </v-hover>
-        </p>
+            </v-hover>
+          </p>
+        </div>
       </v-col>
       <v-spacer/>
     </v-row>

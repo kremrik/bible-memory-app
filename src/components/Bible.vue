@@ -49,16 +49,14 @@
           <p>
             <span>[{{ verse.verse }}] </span>
             <span>{{ verse.hint }} </span>
-            <v-hover
-              v-slot="{ hover }"
-              open-delay="200"
-            >
-              <span>
-                <span v-for="r in verse.rest" :key="r" :class="{ 'on-hover': !hover }">
-                  {{ r }}
-                </span>
-              </span>
-            </v-hover>
+            <span v-for="r in verse.rest" :key="r.index">
+              <v-hover
+                v-slot="{ hover }"
+                open-delay="200"
+              >
+                <span :class="{ 'on-hover': !hover}">{{ r }}</span>
+              </v-hover>
+            </span>
           </p>
         </div>
       </v-col>
@@ -77,8 +75,6 @@
 </style>
 
 <script>
-  // import queryBible from '@/utils/request';
-
   export default {
     name: 'Bible',
     data: () => ({
@@ -93,10 +89,6 @@
         const response = await fetch(url);
         const data = await response.json();
         this.passageText = data;
-        // let passage = data.verses.map(
-        //   x => `[${x.verse}] ${x.hint} ${x.rest}`
-        // );
-        // this.passageText = passage.join(" ");
       }
     },
   }
